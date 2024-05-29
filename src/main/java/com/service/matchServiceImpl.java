@@ -15,12 +15,6 @@ public class matchServiceImpl implements matchService {
 	public matchDao dao;
 
 	@Override
-	public List<Match> save() {
-
-		return dao.save();
-	}
-
-	@Override
 	public List<Match> getLive() {
 
 		return dao.getLive();

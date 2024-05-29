@@ -6,23 +6,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.model.Match;
 
 @Repository
 public class matchDaoImpl implements matchDao {
-
-	@Autowired
-	public SessionFactory factory;
 
 	public List<Match> saveMatch() {
 		List<Match> matches = new ArrayList<>();
@@ -56,11 +49,7 @@ public class matchDaoImpl implements matchDao {
 				match1.setMatchLink(matchLink);
 				match1.setTextComplete(textComplete);
 
-				Session session = factory.openSession();
-				session.saveOrUpdate(match1);
-				session.beginTransaction().commit();
 				matches.add(match1);
-//				updateMatch(match1);
 
 			}
 
@@ -69,27 +58,6 @@ public class matchDaoImpl implements matchDao {
 
 		}
 		return matches;
-	}
-
-	public void updateMatch(Match match1) {
-		Session session = factory.openSession();
-		Match match = session.get(Match.class, match1.getTeamHeading());
-		if (match == null) {
-			session.save(match1);
-		} else {
-
-			match1.setTeamHeading(match.getTeamHeading());
-			session.update(match1);
-		}
-
-	}
-
-	public List<Match> save() {
-		saveMatch();
-		Session session = factory.openSession();
-		Query querry = session.createQuery("from Match");
-		List<Match> mm = querry.getResultList();
-		return mm;
 	}
 
 	@Override

@@ -6,8 +6,6 @@ import com.model.Match;
 
 public interface matchDao {
 
-	List<Match> save();
-
 	List<Match> getLive();
 
 }
