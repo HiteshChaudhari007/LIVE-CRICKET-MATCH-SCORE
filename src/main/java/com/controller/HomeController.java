@@ -16,14 +16,6 @@ public class HomeController {
 	@Autowired
 	public matchService service;
 
-//	@RequestMapping("/")
-//	public String onStart(Model model) {
-//
-//		List<Match> list = service.save();
-//		model.addAttribute("data", list);
-//		return "views/index.jsp";
-//	}
-
 	@RequestMapping("/")
 	public String onStart(Model model) {
 

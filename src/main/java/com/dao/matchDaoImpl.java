@@ -2,8 +2,6 @@ package com.dao;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -24,7 +22,6 @@ public class matchDaoImpl implements matchDao {
 			Document document = Jsoup.connect(url).get();
 			Elements liveScoreElements = document.select("div.cb-mtch-lst.cb-tms-itm");
 			for (Element match : liveScoreElements) {
-				HashMap<String, String> liveMatchInfo = new LinkedHashMap<>();
 				String teamsHeading = match.select("h3.cb-lv-scr-mtch-hdr").select("a").text();
 				String matchNumberVenue = match.select("span").text();
 				Elements matchBatTeamInfo = match.select("div.cb-hmscg-bat-txt");
@@ -35,7 +32,6 @@ public class matchDaoImpl implements matchDao {
 				String bowlTeamScore = bowlTeamInfo.select("div.cb-hmscg-tm-nm+div").text();
 				String textLive = match.select("div.cb-text-live").text();
 				String textComplete = match.select("div.cb-text-complete").text();
-				// getting match link
 				String matchLink = match.select("a.cb-lv-scrs-well.cb-lv-scrs-well-live").attr("href").toString();
 
 				Match match1 = new Match();
@@ -54,7 +50,7 @@ public class matchDaoImpl implements matchDao {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println(e);
 
 		}
 		return matches;
